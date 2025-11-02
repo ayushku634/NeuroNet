@@ -79,3 +79,37 @@ merged_df = (
     .merge(visit_agg, on='patient_id', how='left')
     .merge(risk_df, on='patient_id', how='left')
 )
+# 🏥 Patient Data Integration and Feature Engineering Pipeline
+
+## 📘 Overview
+This project consolidates multiple healthcare data sources into a single, **clean, patient-level dataset** for downstream modeling.  
+It merges patient demographics, diagnoses, care records, visit histories, and risk data to produce a unified dataset — each row representing **one patient** with aggregated features.
+
+The notebook performs:
+- Multi-source data loading  
+- Aggregations across visits, diagnoses, and care events  
+- Missing value handling and data cleaning  
+- Final dataset generation for machine learning
+
+---
+
+## ⚙️ Step 6 — Missing Value Imputation
+
+Ensures all numeric columns have valid values to prevent errors during model training.
+
+```python
+merged_df.fillna({
+    'num_diagnoses': 0,
+    'num_chronic_conditions': 0,
+    'unique_conditions': 0,
+    'has_cancer': 0,
+    'has_diabetes': 0,
+    'has_hypertension': 0,
+    'num_care_records': 0,
+    'num_care_gaps': 0,
+    'avg_msrmnt_value': 0,
+    'num_visits': 0,
+    'num_readmissions': 0,
+    'unique_visit_types': 0
+}, inplace=True)
+
